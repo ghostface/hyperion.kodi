@@ -34,7 +34,7 @@ class MyMonitor (xbmc.Monitor):
 		xbmc.Monitor.__init__(self)
 		self.__settings = settings
 		self.__settings.screensaver = xbmc.getCondVisibility("System.ScreenSaverActive")
-		self.__settings.abort = xbmc.abortRequested
+		self.__settings.abort = xbmc.Monitor().abortRequested()
 
 	def onAbortRequested(self):
 		self.__settings.abort = False
