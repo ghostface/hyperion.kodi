@@ -1,6 +1,7 @@
 import math
 import xbmc
 import xbmcaddon
+import binascii
 
 from hyperion.Hyperion import Hyperion
 from misc import log
@@ -31,7 +32,7 @@ class DisconnectedState:
         try:
             nextState = ConnectedState(self.__settings)
             return nextState
-        except Exception, e:
+        except Exception as e:
             # unable to connect. notify and go to the error state
             if self.__settings.showErrorMessage:
                 notify(xbmcaddon.Addon().getLocalizedString(32100))
@@ -97,7 +98,8 @@ class ConnectedState:
         startReadOut = False
 
         self.__data = self.__capture.getImage()
-        if len(self.__data) > 0:
+        hexdata = binascii.b2a_hex(self.__data)
+        if len(self.__data) > 0 and not hexdata.startswith(bytes.fromhex('0000000000000000')) and not hexdata.startswith(bytes.fromhex('000000ff000000ff')):
             startReadOut = True
 
         if startReadOut:
@@ -110,7 +112,7 @@ class ConnectedState:
                 # send image to hyperion
                 self.__hyperion.sendImage(self.__capture.getWidth(), self.__capture.getHeight(), str(self.__data),
                                           self.__settings.priority, -1)
-            except Exception, e:
+            except Exception as e:
                 # unable to send image. notify and go to the error state
                 notify(xbmcaddon.Addon().getLocalizedString(32101))
                 return ErrorState(self.__settings)
