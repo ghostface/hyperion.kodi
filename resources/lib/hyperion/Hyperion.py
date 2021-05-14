@@ -90,7 +90,7 @@ class Hyperion(object):
         imageRequest = request.Extensions[ImageRequest.imageRequest]
         imageRequest.imagewidth = width
         imageRequest.imageheight = height
-        imageRequest.imagedata = str(data)
+        imageRequest.imagedata = bytes(data)
         imageRequest.priority = priority
         imageRequest.duration = duration
 

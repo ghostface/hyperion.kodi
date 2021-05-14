@@ -1,6 +1,7 @@
 import math
 import xbmc
 import xbmcaddon
+import binascii
 
 from hyperion.Hyperion import Hyperion
 from misc import log
@@ -97,7 +98,8 @@ class ConnectedState:
         startReadOut = False
 
         self.__data = self.__capture.getImage()
-        if len(self.__data) > 0:
+        hexdata = binascii.b2a_hex(self.__data)
+        if len(self.__data) > 0 and not hexdata.startswith(bytes.fromhex('0000000000000000')) and not hexdata.startswith(bytes.fromhex('000000ff000000ff')):
             startReadOut = True
 
         if startReadOut:
