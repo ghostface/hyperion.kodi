@@ -25,11 +25,11 @@ import socket
 import struct
 
 #protobuf message includes
-from message_pb2 import HyperionRequest
-from message_pb2 import HyperionReply
-from message_pb2 import ColorRequest
-from message_pb2 import ImageRequest
-from message_pb2 import ClearRequest
+from .message_pb2 import HyperionRequest
+from .message_pb2 import HyperionReply
+from .message_pb2 import ColorRequest
+from .message_pb2 import ImageRequest
+from .message_pb2 import ClearRequest
 
 class Hyperion(object):
     '''Hyperion connection class

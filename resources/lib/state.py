@@ -31,7 +31,7 @@ class DisconnectedState:
         try:
             nextState = ConnectedState(self.__settings)
             return nextState
-        except Exception, e:
+        except Exception as e:
             # unable to connect. notify and go to the error state
             if self.__settings.showErrorMessage:
                 notify(xbmcaddon.Addon().getLocalizedString(32100))
@@ -110,7 +110,7 @@ class ConnectedState:
                 # send image to hyperion
                 self.__hyperion.sendImage(self.__capture.getWidth(), self.__capture.getHeight(), str(self.__data),
                                           self.__settings.priority, -1)
-            except Exception, e:
+            except Exception as e:
                 # unable to send image. notify and go to the error state
                 notify(xbmcaddon.Addon().getLocalizedString(32101))
                 return ErrorState(self.__settings)
